@@ -21,9 +21,7 @@
     "url": "https://github.com/3axap4eHko/react-native-katex/issues"
   },
   "homepage": "https://github.com/3axap4eHko/react-native-katex#readme",
-  "dependencies": {
-    "react-native-webview": "^9.3.0"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "16.*",
     "react-native": "0.*"
@@ -34,6 +32,8 @@
     "katex": "^0.11.1",
     "react": "^16.13.1",
     "react-native": "^0.62",
+    "react-native-autoheight-webview": "git+https://github.com/delyethan/react-native-autoheight-webview.git",
+    "react-native-webview": ">= 5.4.0",
     "typescript": "^3.8.3"
   }
 }
