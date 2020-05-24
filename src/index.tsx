@@ -32,7 +32,7 @@ export interface ContentOptions extends KatexOptions {
   expression?: string;
 }
 
-function getContent({ inlineStyle, expression, ...options }: ContentOptions) {
+function getContent({ inlineStyle, expression = "", ...options }: ContentOptions) {
   return `<!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +42,9 @@ ${inlineStyle}
 </style>
 <script>
 window.onerror = e => document.write(e);
-window.onload = () => katex.render(${JSON.stringify(expression)}, document.body, ${JSON.stringify(options)});
+window.onload = () => katex.render(${JSON.stringify(
+    expression
+  )}, document.body, ${JSON.stringify(options)});
 ${katexScript}
 </script>
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
@@ -59,20 +61,20 @@ const defaultStyle = StyleSheet.create({
   },
 });
 
-const defaultInlineStyle = `
-html, body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-.katex {
-  margin: 0;
-  display: flex;
-}
-`;
+// const defaultInlineStyle = `
+// html, body {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%;
+//   margin: 0;
+//   padding: 0;
+// }
+// .katex {
+//   margin: 0;
+//   display: flex;
+// }
+// `;
 
 export interface KatexProps extends ContentOptions {
   style: StyleProp<ViewStyle>;
@@ -82,23 +84,24 @@ export interface KatexProps extends ContentOptions {
 
 export default function Katex({ style, onLoad, onError, ...options }: KatexProps) {
   return <AutoHeightWebView
-      style={style}
-      source={{ html: getContent(options) }}
-      onLoad={onLoad}
-      onError={onError}
-      renderError={onError}
-      scrollEnabled={false}
-      scalesPageToFit={true}
-      viewportContent={'width=device-width, user-scalable=no'}
+    style={style}
+    source={{ html: getContent(options) }}
+    onLoad={onLoad}
+    onError={onError}
+    renderError={onError}
+    scrollEnabled={false}
+    scalesPageToFit={true}
+    viewportContent={'width=device-width, user-scalable=no'}
   />;
 }
+
 
 Katex.defaultProps = {
   expression: '',
   displayMode: false,
   throwOnError: false,
   errorColor: '#f00',
-  inlineStyle: defaultInlineStyle,
+  // inlineStyle: defaultInlineStyle,
   style: defaultStyle,
   macros: {},
   colorIsTextColor: false,
